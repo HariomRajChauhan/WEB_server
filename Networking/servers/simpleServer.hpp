@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "../hrslibNetworking.hpp"
+#include <unistd.h>
 
 namespace HRS
 {

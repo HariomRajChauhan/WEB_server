@@ -30,7 +30,7 @@ int main()
         // to check the port is using or not in terminal-code
         // netstat -ano | find "8082"
         std::cout << "Listening Socket..." << std::endl;
-        HRS::listeningSocket ls = HRS::listeningSocket(AF_INET, SOCK_STREAM, 0, 5501, INADDR_ANY, 10);
+        HRS::listeningSocket ls = HRS::listeningSocket(AF_INET, SOCK_STREAM, 0, 80, INADDR_ANY, 10);
 
         std::cout << "Success!" << std::endl;
 

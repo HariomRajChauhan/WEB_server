@@ -6,6 +6,7 @@ HRS::simpleServer::simpleServer(int domain, int service, int protocol, int port,
     // delete socket;
 }
 
-HRS::listeningSocket* HRS::simpleServer::get_socket(){
+HRS::listeningSocket *HRS::simpleServer::get_socket()
+{
     return socket;
 }

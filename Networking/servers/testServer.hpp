@@ -1,6 +1,6 @@
 #ifndef testServer_hpp
 #define testServer_hpp
-#define MAX_LEN 3000
+
 #include <stdio.h>
 
 #include "simpleServer.hpp"

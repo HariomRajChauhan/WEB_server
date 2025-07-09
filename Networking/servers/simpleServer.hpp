@@ -1,6 +1,8 @@
 #ifndef simpleServer_hpp
 #define simpleServer_hpp
 
+#define MAX_LEN 3000
+
 #include <stdio.h>
 
 #include "../hrslibNetworking.hpp"

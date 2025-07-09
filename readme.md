@@ -43,3 +43,21 @@ including encryption, compression, and translation.
 ## Web Server
 
 ### A web server is a software application or hardware device that serves web content to clients over the internet
+
+
+### for testing the server, here the make file code
+
+```bash
+# Makefile for building and running a simple web server test
+all:
+    g++ servers/test.cpp servers/simpleServer.cpp servers/testServer.cpp sockets/simpleSocket.cpp sockets/bindingSocket.cpp sockets/listeningSocket.cpp -o test.exe -lws2_32
+r:
+    ./test.exe
+
+```
+
+### go in wen_server/Networking directory and run the following command to build and run the testliveserver
+
+```bash
+g++ ./servers/testliveServer.cpp ./servers/liveServer.cpp ./servers/simpleServer.cpp ./sockets/bindingSocket.cpp ./sockets/listeningSocket.cpp ./sockets/simpleSocket.cpp -o ./testliveServer.exe -lws2_32
+```

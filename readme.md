@@ -47,7 +47,7 @@ including encryption, compression, and translation.
 
 ### for testing the server, here the make file code
 
-```bash
+<!-- ```bash
 # Makefile for building and running a simple web server test
 all:
     g++ servers/test.cpp servers/simpleServer.cpp servers/testServer.cpp sockets/simpleSocket.cpp sockets/bindingSocket.cpp sockets/listeningSocket.cpp -o test.exe -lws2_32
@@ -60,4 +60,19 @@ r:
 
 ```bash
 g++ ./servers/testliveServer.cpp ./servers/liveServer.cpp ./servers/simpleServer.cpp ./sockets/bindingSocket.cpp ./sockets/listeningSocket.cpp ./sockets/simpleSocket.cpp -o ./testliveServer.exe -lws2_32
+``` -->
+
+
+### 🛠️ Compilation Example (manual)
+
+```bash
+g++ -std=c++17 main.cpp \
+    sockets/simpleSocket.cpp \
+    sockets/connectingSocket.cpp \
+    sockets/bindingSocket.cpp \
+    sockets/listeningSocket.cpp \
+    servers/simpleServer.cpp \
+    servers/liveServer.cpp \
+    -lws2_32 -o build/server.exe
+
 ```

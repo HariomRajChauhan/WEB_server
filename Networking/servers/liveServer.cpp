@@ -32,7 +32,7 @@ std::string generate_directory_listing(const std::string &dir)
     return html.str();
 }
 
-HRS::liveServer::liveServer(const std::string &root) : simpleServer(AF_INET, SOCK_STREAM, 0, 8080, INADDR_ANY, 10), rootDir(root)
+HRS::liveServer::liveServer(const std::string &root, int PORT_NO) : simpleServer(AF_INET, SOCK_STREAM, 0, PORT_NO, INADDR_ANY, 10), rootDir(root)
 {
     lunch();
 }
@@ -55,18 +55,21 @@ void HRS::liveServer::handaler()
     std::cout << buffer << std::endl;
 }
 
+// responder
 void HRS::liveServer::responder()
 {
     std::string request(buffer);
     size_t pos1 = request.find("GET ");
     size_t pos2 = request.find("HTTP/");
     std::string path = "/";
+
     if (pos1 != std::string::npos && pos2 != std::string::npos)
     {
         path = request.substr(pos1 + 4, pos2 - (pos1 + 4));
         if (path == "/")
-            path = "/index.html";
+            path = "/index.html";  // default fallback
     }
+
     std::string fullPath = rootDir + path;
 
     // Try to serve file
@@ -76,7 +79,24 @@ void HRS::liveServer::responder()
         std::ostringstream ss;
         ss << file.rdbuf();
         std::string body = ss.str();
-        std::string header = "HTTP/1.1 200 OK\r\nContent-Length: " + std::to_string(body.size()) + "\r\n\r\n";
+
+        // === AUTO-REFRESH FOR index.html ===
+        if (path == "/index.html")
+        {
+            size_t headPos = body.find("<head>");
+            if (headPos != std::string::npos)
+            {
+                headPos += 6; // insert after <head>
+                body.insert(headPos, "<meta http-equiv='refresh' content='2'>");
+            }
+            else
+            {
+                // fallback inject at top
+                body = "<meta http-equiv='refresh' content='2'>" + body;
+            }
+        }
+
+        std::string header = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: " + std::to_string(body.size()) + "\r\n\r\n";
         send(new_socket, header.c_str(), header.size(), 0);
         send(new_socket, body.c_str(), body.size(), 0);
     }
@@ -94,8 +114,10 @@ void HRS::liveServer::responder()
         std::string notFound = "HTTP/1.1 404 Not Found\r\nContent-Length: 13\r\n\r\n404 Not Found";
         send(new_socket, notFound.c_str(), notFound.size(), 0);
     }
+
     CLOSESOCKET(new_socket);
 }
+
 
 void HRS::liveServer::lunch()
 {

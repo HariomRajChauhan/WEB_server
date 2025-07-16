@@ -1,5 +1,5 @@
 #include <winsock2.h>
-#include "liveServer.hpp"
+#include "servers/hrslibServer.hpp"
 
 int main()
 {
@@ -9,8 +9,11 @@ int main()
         std::cerr << "WSAStartup failed." << std::endl;
         return 1;
     }
+    int PORT_NO;
+    std::cout << "Enter Port No : ";
+    std::cin >> PORT_NO;
     // serve the current directory
-    HRS::liveServer server("./");
+    HRS::liveServer server("./", PORT_NO);
     WSACleanup();
 
     return 0;

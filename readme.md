@@ -56,7 +56,7 @@ r:
 
 ```
 
-### go in wen_server/Networking directory and run the following command to build and run the testliveserver
+### go in web_server/Networking directory and run the following command to build and run the testliveserver
 
 ```bash
 g++ ./servers/testliveServer.cpp ./servers/liveServer.cpp ./servers/simpleServer.cpp ./sockets/bindingSocket.cpp ./sockets/listeningSocket.cpp ./sockets/simpleSocket.cpp -o ./testliveServer.exe -lws2_32
